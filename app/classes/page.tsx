@@ -105,6 +105,81 @@ function Container({ children }: { children: React.ReactNode }) {
   return <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">{children}</div>;
 }
 
+/* ===========================
+   Header with dropdown menus
+   =========================== */
+function Header() {
+  return (
+    <header className="sticky top-0 z-50 w-full border-b border-neutral-200/20 bg-white/95 backdrop-blur-xl shadow-sm">
+      <Container>
+        <div className="flex h-20 items-center justify-between">
+          {/* Brand */}
+          <Link
+            href="/"
+            className="text-xl font-bold tracking-tight text-neutral-900 transition-opacity hover:opacity-70"
+          >
+            DESIGNERAE
+          </Link>
+
+          {/* Desktop nav with dropdowns */}
+          <nav className="hidden items-center gap-8 text-sm font-medium text-neutral-700 md:flex">
+            <Link href="/" className="transition-colors hover:text-neutral-900">Home</Link>
+
+            {/* Services dropdown */}
+            <details className="relative group">
+              <summary className="flex cursor-pointer list-none items-center gap-1 rounded-lg px-2 py-2 transition-colors hover:text-neutral-900">
+                <span>Services</span>
+                <svg className="h-3.5 w-3.5 transition-transform group-open:rotate-180" viewBox="0 0 10 6" fill="none" aria-hidden="true">
+                  <path d="M1 1.25L5 4.75L9 1.25" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                </svg>
+              </summary>
+
+              <div className="absolute left-1/2 z-50 mt-3 w-64 -translate-x-1/2 rounded-xl border border-neutral-200 bg-white p-1.5 shadow-xl">
+                <Link href="/#services" className="block rounded-lg px-4 py-3 text-neutral-700 transition-colors hover:bg-neutral-50 hover:text-neutral-900">All Services</Link>
+                <Link href="/services/consultations/healthy-hair-consultation" className="block rounded-lg px-4 py-3 text-neutral-700 transition-colors hover:bg-neutral-50 hover:text-neutral-900">Healthy Hair Consultation</Link>
+                <Link href="/services/consultations/loc-start-consultation" className="block rounded-lg px-4 py-3 text-neutral-700 transition-colors hover:bg-neutral-50 hover:text-neutral-900">Loc Start Consultation</Link>
+                <Link href="/services/consultations/color-consultation" className="block rounded-lg px-4 py-3 text-neutral-700 transition-colors hover:bg-neutral-50 hover:text-neutral-900">Color Consultation</Link>
+              </div>
+            </details>
+
+            {/* About dropdown */}
+            <details className="relative group">
+              <summary className="flex cursor-pointer list-none items-center gap-1 rounded-lg px-2 py-2 transition-colors hover:text-neutral-900">
+                <span>About</span>
+                <svg className="h-3.5 w-3.5 transition-transform group-open:rotate-180" viewBox="0 0 10 6" fill="none" aria-hidden="true">
+                  <path d="M1 1.25L5 4.75L9 1.25" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                </svg>
+              </summary>
+
+              <div className="absolute left-1/2 z-50 mt-3 w-64 -translate-x-1/2 rounded-xl border border-neutral-200 bg-white p-1.5 shadow-xl">
+                <Link href="/#story" className="block rounded-lg px-4 py-3 text-neutral-700 transition-colors hover:bg-neutral-50 hover:text-neutral-900">Our Story</Link>
+                <Link href="/classes" className="block rounded-lg px-4 py-3 text-neutral-700 transition-colors hover:bg-neutral-50 hover:text-neutral-900">Classes</Link>
+                <Link href="/blog" className="block rounded-lg px-4 py-3 text-neutral-700 transition-colors hover:bg-neutral-50 hover:text-neutral-900">Blog</Link>
+                <Link href="/about/team" className="block rounded-lg px-4 py-3 text-neutral-700 transition-colors hover:bg-neutral-50 hover:text-neutral-900">Team</Link>
+              </div>
+            </details>
+
+            {/* Single links */}
+            <Link href="/my-account" className="transition-colors hover:text-neutral-900">My Account</Link>
+            <a href="/#contact" className="transition-colors hover:text-neutral-900">Contact</a>
+            <Link href="/shop" className="rounded-lg border border-neutral-300 px-4 py-2 text-neutral-900 transition-all hover:border-neutral-400 hover:bg-neutral-50">Shop</Link>
+          </nav>
+
+          {/* Mobile quick links + Book Now */}
+          <div className="flex items-center gap-2">
+            <Link href="/my-account" className="mr-1 rounded-lg border border-neutral-300 px-4 py-2 text-sm font-semibold text-neutral-900 transition-all hover:border-neutral-400 hover:bg-neutral-50 md:hidden">My Account</Link>
+            <Link href="/classes" className="mr-1 rounded-lg border border-neutral-300 px-4 py-2 text-sm font-semibold text-neutral-900 transition-all hover:border-neutral-400 hover:bg-neutral-50 md:hidden">Classes</Link>
+            <Link href="/shop" className="mr-1 rounded-lg border border-neutral-300 px-4 py-2 text-sm font-semibold text-neutral-900 transition-all hover:border-neutral-400 hover:bg-neutral-50 md:hidden">Shop</Link>
+            <Link href={BOOKING_URL} className="rounded-lg bg-emerald-600 px-6 py-2.5 text-sm font-semibold text-white shadow-sm transition-all hover:bg-emerald-700 hover:shadow-md">
+              Book Now
+            </Link>
+          </div>
+        </div>
+      </Container>
+    </header>
+  );
+}
+
 // ---------- JSON-LD (Course + supporting Events) ----------
 function JsonLd() {
   const course = {
@@ -163,6 +238,9 @@ export default function ClassesPage() {
   return (
     <main className="bg-gradient-to-b from-neutral-50 to-white text-neutral-900">
       <JsonLd />
+
+      {/* Navigation Header */}
+      <Header />
 
       {/* Hero / Header */}
       <section className="border-b border-neutral-200 bg-white">

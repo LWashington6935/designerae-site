@@ -7,7 +7,18 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+
+    // --- GitHub Pages (static export) ---
+    "export": "next build && next export",
+    "preview:static": "npx serve out -l 3000",
+
+    // Option A: simple manual deploy using git subtree (no extra deps)
+    "deploy": "npm run export && bash -lc 'touch out/.nojekyll && git checkout -B gh-pages && git add -f out && git commit -m \"deploy\" || true && git subtree push --prefix out origin gh-pages'"
+
+    // Option B: if you prefer the gh-pages package, add:
+    // "predeploy:gh": "npm run export && touch out/.nojekyll",
+    // "deploy:gh": "gh-pages -d out -b gh-pages"
   },
   "dependencies": {
     "next": "14.2.5",
