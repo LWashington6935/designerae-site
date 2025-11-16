@@ -7,11 +7,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-
-    "export": "next build && next export",
-    "predeploy": "npm run export && node -e \"require('fs').mkdirSync('out', {recursive:true}); require('fs').writeFileSync('out/.nojekyll','')\"",
-    "deploy": "npm run predeploy && git subtree push --prefix out origin gh-pages"
+    "lint": "next lint"
   },
   "dependencies": {
     "next": "14.2.5",
