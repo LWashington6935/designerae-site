@@ -1,7 +1,11 @@
 // app/page.tsx
 import Image from "next/image";
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import type { Metadata } from "next";
+
+// Client hero (autoplay carousel + lightbox)
+const Hero = dynamic(() => import("./components/InteractiveHero"), { ssr: false });
 
 export const metadata: Metadata = {
   title: "Designerae Inc. — Locs You Can Rely On",
@@ -17,19 +21,28 @@ function Container({ children }: { children: React.ReactNode }) {
 }
 
 /* ===========================
-   Header with dropdown menus
+   Header with dropdown menus + logo
    =========================== */
 function Header() {
+  const LOGO_SRC = "/logo.png"; // <- change path/name if different
+
   return (
     <header className="sticky top-0 z-50 w-full border-b border-neutral-200/20 bg-white/95 backdrop-blur-xl shadow-sm">
       <Container>
         <div className="flex h-20 items-center justify-between">
-          {/* Brand */}
-          <Link
-            href="/"
-            className="text-xl font-bold tracking-tight text-neutral-900 transition-opacity hover:opacity-70"
-          >
-            DESIGNERAE
+          {/* Brand: logo + wordmark */}
+          <Link href="/" aria-label="Designerae Home" className="flex items-center gap-3 hover:opacity-90">
+            <Image
+              src={LOGO_SRC}
+              alt="Designerae logo"
+              width={240}
+              height={240}
+              priority
+              className="h-14 w-auto md:h-16 lg:h-20"
+            />
+            <span className="text-2xl md:text-3xl font-extrabold tracking-tight text-neutral-900">
+              DESIGNERAE
+            </span>
           </Link>
 
           {/* Desktop nav with dropdowns */}
@@ -44,7 +57,6 @@ function Header() {
                   <path d="M1 1.25L5 4.75L9 1.25" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
                 </svg>
               </summary>
-
               <div className="absolute left-1/2 z-50 mt-3 w-64 -translate-x-1/2 rounded-xl border border-neutral-200 bg-white p-1.5 shadow-xl">
                 <Link href="#services" className="block rounded-lg px-4 py-3 text-neutral-700 transition-colors hover:bg-neutral-50 hover:text-neutral-900">All Services</Link>
                 <Link href="/services/consultations/healthy-hair-consultation" className="block rounded-lg px-4 py-3 text-neutral-700 transition-colors hover:bg-neutral-50 hover:text-neutral-900">Healthy Hair Consultation</Link>
@@ -61,7 +73,6 @@ function Header() {
                   <path d="M1 1.25L5 4.75L9 1.25" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
                 </svg>
               </summary>
-
               <div className="absolute left-1/2 z-50 mt-3 w-64 -translate-x-1/2 rounded-xl border border-neutral-200 bg-white p-1.5 shadow-xl">
                 <Link href="#story" className="block rounded-lg px-4 py-3 text-neutral-700 transition-colors hover:bg-neutral-50 hover:text-neutral-900">Our Story</Link>
                 <Link href="/classes" className="block rounded-lg px-4 py-3 text-neutral-700 transition-colors hover:bg-neutral-50 hover:text-neutral-900">Classes</Link>
@@ -77,11 +88,11 @@ function Header() {
           </nav>
 
           {/* Mobile quick links + Book Now */}
-          <div className="flex items-center gap-2">
-            <Link href="/my-account" className="mr-1 rounded-lg border border-neutral-300 px-4 py-2 text-sm font-semibold text-neutral-900 transition-all hover:border-neutral-400 hover:bg-neutral-50 md:hidden">My Account</Link>
-            <Link href="/classes" className="mr-1 rounded-lg border border-neutral-300 px-4 py-2 text-sm font-semibold text-neutral-900 transition-all hover:border-neutral-400 hover:bg-neutral-50 md:hidden">Classes</Link>
-            <Link href="/shop" className="mr-1 rounded-lg border border-neutral-300 px-4 py-2 text-sm font-semibold text-neutral-900 transition-all hover:border-neutral-400 hover:bg-neutral-50 md:hidden">Shop</Link>
-            <Link href={BOOKING_URL} className="rounded-lg bg-emerald-600 px-6 py-2.5 text-sm font-semibold text-white shadow-sm transition-all hover:bg-emerald-700 hover:shadow-md">
+          <div className="flex items-center gap-2 md:hidden">
+            <Link href="/my-account" className="rounded-lg border border-neutral-300 px-3 py-2 text-sm font-semibold text-neutral-900 hover:border-neutral-400 hover:bg-neutral-50">My Account</Link>
+            <Link href="/classes" className="rounded-lg border border-neutral-300 px-3 py-2 text-sm font-semibold text-neutral-900 hover:border-neutral-400 hover:bg-neutral-50">Classes</Link>
+            <Link href="/shop" className="rounded-lg border border-neutral-300 px-3 py-2 text-sm font-semibold text-neutral-900 hover:border-neutral-400 hover:bg-neutral-50">Shop</Link>
+            <Link href={BOOKING_URL} className="rounded-lg bg-emerald-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-emerald-700 hover:shadow-md">
               Book Now
             </Link>
           </div>
@@ -91,58 +102,8 @@ function Header() {
   );
 }
 
-/* ================
-   Hero
-   ================ */
-function Hero() {
-  return (
-    <section className="relative isolate overflow-hidden bg-neutral-900">
-      <div className="absolute inset-0 -z-10">
-        <Image src="/hero.jpg" alt="Locs hero image" fill priority className="object-cover opacity-40" />
-        <div className="absolute inset-0 bg-gradient-to-b from-neutral-900/80 via-neutral-900/60 to-neutral-900" />
-      </div>
-      <Container>
-        <div className="flex min-h-[75vh] flex-col items-center justify-center py-32 text-center">
-          <h1 className="text-5xl font-bold tracking-tight text-white sm:text-6xl md:text-7xl lg:text-8xl">
-            DESIGNERAE
-          </h1>
-          <p className="mt-8 max-w-2xl text-xl leading-relaxed text-neutral-200">
-            We care about your locs like ours — precise, timely, high-quality service for every hair texture.
-          </p>
-          <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
-            <Link
-              href={BOOKING_URL}
-              className="rounded-lg bg-emerald-600 px-8 py-4 text-base font-semibold text-white shadow-lg transition-all hover:bg-emerald-700 hover:shadow-xl"
-            >
-              Book Now
-            </Link>
-            <a
-              href="#services"
-              className="rounded-lg border border-white/30 bg-white/10 px-8 py-4 text-base font-semibold text-white backdrop-blur-sm transition-all hover:bg-white/20"
-            >
-              See Services
-            </a>
-            <Link
-              href="/classes"
-              className="rounded-lg border border-white/30 bg-white/10 px-8 py-4 text-base font-semibold text-white backdrop-blur-sm transition-all hover:bg-white/20"
-            >
-              Classes & Workshops
-            </Link>
-            <Link
-              href="/shop"
-              className="rounded-lg border border-white/30 bg-white/10 px-8 py-4 text-base font-semibold text-white backdrop-blur-sm transition-all hover:bg-white/20"
-            >
-              Shop Products
-            </Link>
-          </div>
-        </div>
-      </Container>
-    </section>
-  );
-}
-
 /* ===========================
-   Shared service row component - ENHANCED
+   Shared service row component
    =========================== */
 function ServiceRow({
   title,
@@ -210,12 +171,11 @@ function ServiceRow({
 }
 
 /* ===========================
-   Featured Services - UPGRADED
+   Featured Services
    =========================== */
 function FeaturedServices() {
   return (
     <section id="services" className="relative overflow-hidden bg-gradient-to-br from-emerald-50 via-white to-amber-50 py-32 text-black">
-      {/* Decorative background elements */}
       <div className="absolute inset-0 -z-10">
         <div className="absolute left-0 top-0 h-96 w-96 rounded-full bg-emerald-200/30 blur-3xl"></div>
         <div className="absolute right-0 bottom-0 h-96 w-96 rounded-full bg-amber-200/30 blur-3xl"></div>
@@ -227,37 +187,15 @@ function FeaturedServices() {
             <span className="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
             Premium Loc Care Services
           </div>
-          <h2 className="mt-6 bg-gradient-to-br from-neutral-900 via-neutral-800 to-emerald-900 bg-clip-text text-5xl font-bold tracking-tight text-transparent sm:text-6xl">
-            Quality Service You Can Rely On
-          </h2>
-          <p className="mt-6 text-xl leading-relaxed text-neutral-600">
-            Over a decade of professional experience — because your locs deserve nothing less.
-          </p>
         </div>
 
         <div className="mt-20 grid gap-8">
-          {/* Consultations (exactly 3, all linked) */}
           <ServiceRow
             title="Consultations"
             items={[
-              {
-                name: "Healthy Hair Consultation",
-                duration: "20–30 min",
-                price: "$25",
-                href: "/services/consultations/healthy-hair-consultation",
-              },
-              {
-                name: "Loc Start Consultation",
-                duration: "30 min",
-                price: "$25",
-                href: "/services/consultations/loc-start-consultation",
-              },
-              {
-                name: "Color Consultation",
-                duration: "25–35 min",
-                price: "$30",
-                href: "/services/consultations/color-consultation",
-              },
+              { name: "Healthy Hair Consultation", duration: "20–30 min", price: "$25", href: "/services/consultations/healthy-hair-consultation" },
+              { name: "Loc Start Consultation", duration: "30 min", price: "$25", href: "/services/consultations/loc-start-consultation" },
+              { name: "Color Consultation", duration: "25–35 min", price: "$30", href: "/services/consultations/color-consultation" },
             ]}
           />
 
@@ -287,13 +225,12 @@ function FeaturedServices() {
   );
 }
 
-/* ================
-   Our Story - UPGRADED
-   ================ */
+/* ===========================
+   Our Story
+   =========================== */
 function Story() {
   return (
     <section id="story" className="relative overflow-hidden bg-gradient-to-b from-white via-neutral-50 to-white py-32 text-black">
-      {/* Decorative elements */}
       <div className="absolute inset-0 -z-10">
         <div className="absolute right-0 top-20 h-72 w-72 rounded-full bg-emerald-100/40 blur-3xl"></div>
         <div className="absolute left-0 bottom-20 h-72 w-72 rounded-full bg-amber-100/40 blur-3xl"></div>
@@ -301,7 +238,6 @@ function Story() {
 
       <Container>
         <div className="mx-auto max-w-5xl">
-          {/* Header */}
           <div className="text-center">
             <div className="inline-flex items-center gap-2 rounded-full border border-amber-200 bg-amber-50 px-4 py-2 text-sm font-medium text-amber-700">
               <span className="h-1.5 w-1.5 rounded-full bg-amber-500"></span>
@@ -312,21 +248,13 @@ function Story() {
             </h2>
           </div>
 
-          {/* Main content in premium cards */}
           <div className="mt-16 space-y-8">
-            {/* Intro card */}
             <div className="rounded-2xl border border-neutral-200 bg-gradient-to-br from-white to-neutral-50/50 p-10 shadow-lg shadow-neutral-900/5">
               <p className="text-lg leading-relaxed text-neutral-700">
-                Finding the right loc salon is a significant decision—one that becomes truly rewarding when you connect with
-                professionals who understand your vision and care deeply about your journey. At Designerae, we recognize that
-                hair is an expression of identity, a reflection of personal style, and a testament to individual beauty. Our
-                Cincinnati-based specialists appreciate the profound significance of looking and feeling your absolute best,
-                knowing that beautiful, well-maintained locs build confidence and represent a meaningful journey of self-love
-                and authenticity.
+                Finding the right loc salon is a significant decision—one that becomes truly rewarding when you connect with professionals who understand your vision and care deeply about your journey. At Designerae, we recognize that hair is an expression of identity, a reflection of personal style, and a testament to individual beauty.
               </p>
             </div>
 
-            {/* Mission card with icon */}
             <div className="group rounded-2xl border border-emerald-200 bg-gradient-to-br from-emerald-50 to-white p-10 shadow-lg shadow-emerald-900/5 transition-all hover:shadow-xl hover:shadow-emerald-900/10">
               <div className="flex items-start gap-4">
                 <div className="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-600 shadow-lg shadow-emerald-600/30">
@@ -337,15 +265,12 @@ function Story() {
                 <div className="flex-1">
                   <h3 className="text-2xl font-bold text-neutral-900">Our Mission</h3>
                   <p className="mt-4 text-lg leading-relaxed text-neutral-700">
-                    We are committed to delivering exceptional natural hair care services that promote healing, healthy growth,
-                    and vibrant beauty. By exclusively using premium natural products and proven techniques, we create an
-                    environment where your locs can thrive while honoring their natural texture and integrity.
+                    We deliver exceptional natural hair care that promotes healthy growth and vibrant beauty, using premium natural products and proven techniques.
                   </p>
                 </div>
               </div>
             </div>
 
-            {/* Difference card with benefits */}
             <div className="rounded-2xl border border-amber-200 bg-gradient-to-br from-amber-50 to-white p-10 shadow-lg shadow-amber-900/5">
               <div className="flex items-start gap-4">
                 <div className="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-amber-500 to-amber-600 shadow-lg shadow-amber-600/30">
@@ -355,9 +280,6 @@ function Story() {
                 </div>
                 <div className="flex-1">
                   <h3 className="text-2xl font-bold text-neutral-900">The Designerae Difference</h3>
-                  <p className="mt-4 text-lg leading-relaxed text-neutral-700">
-                    When you choose Designerae as your trusted loc care partner, you benefit from:
-                  </p>
                   <ul className="mt-6 grid gap-4 sm:grid-cols-2">
                     {[
                       "Punctual, respectful service that values your time",
@@ -380,32 +302,11 @@ function Story() {
               </div>
             </div>
 
-            {/* Founder card */}
-            <div className="rounded-2xl border border-neutral-200 bg-gradient-to-br from-white to-neutral-50/50 p-10 shadow-lg shadow-neutral-900/5">
-              <h3 className="text-2xl font-bold text-neutral-900">About Our Founder</h3>
-              <p className="mt-4 text-lg leading-relaxed text-neutral-700">
-                As a Black women-owned and operated establishment, Designerae represents more than exceptional hair care—we
-                embody a commitment to community, culture, and individual empowerment. Our founder and lead specialist,
-                Desirae, has earned recognition throughout Cincinnati for her artistry, dedication, and personalized approach
-                to loc care. She personally connects with each client to understand their unique needs, lifestyle, and
-                aesthetic goals, ensuring every service is tailored to deliver results that exceed expectations.
-              </p>
-            </div>
-
-            {/* Services overview card */}
             <div className="rounded-2xl border border-emerald-200 bg-gradient-to-br from-emerald-50 to-white p-10 shadow-lg shadow-emerald-900/5">
               <h3 className="text-2xl font-bold text-neutral-900">Our Services</h3>
               <p className="mt-4 text-lg leading-relaxed text-neutral-700">
-                Designerae offers comprehensive natural hair care services, including precision loc maintenance, custom loc
-                coloring, advanced styling techniques, crochet maintenance, loc repair, and therapeutic treatments. Each
-                service is performed with meticulous attention to detail and a genuine commitment to your satisfaction.
+                Precision loc maintenance, custom coloring, advanced styling, crochet maintenance, loc repair, and therapeutic treatments — all performed with meticulous care.
               </p>
-
-              <p className="mt-6 text-lg leading-relaxed text-neutral-700">
-                We invite you to experience the Designerae difference and discover why discerning clients throughout
-                Cincinnati trust us with their loc care journey.
-              </p>
-
               <div className="mt-8">
                 <Link
                   href="#services"
@@ -436,8 +337,7 @@ function StoreTeaser() {
           <div>
             <h3 className="text-3xl font-bold tracking-tight text-amber-900">THE DESIGNERAE STORE</h3>
             <p className="mt-5 text-base leading-relaxed text-neutral-700">
-              Handcrafted, all-natural products designed to nourish hair, scalp, and skin. Thoughtfully made with
-              premium ingredients to deliver the care you deserve.
+              Handcrafted, all-natural products designed to nourish hair, scalp, and skin. Thoughtfully made with premium ingredients.
             </p>
             <div className="mt-8">
               <Link
@@ -450,12 +350,7 @@ function StoreTeaser() {
             </div>
           </div>
           <div className="relative aspect-[4/3] overflow-hidden rounded-2xl shadow-lg">
-            <Image
-              src="/shop/hero.jpg"
-              alt="Designerae products"
-              fill
-              className="object-cover"
-            />
+            <Image src="/shop/hero.jpg" alt="Designerae products" fill className="object-cover" />
           </div>
         </div>
       </Container>
@@ -472,17 +367,15 @@ function Gallery() {
       <Container>
         <h3 className="text-3xl font-bold text-neutral-900">Gallery</h3>
         <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
-          {["/g1.jpg", "/g2.jpg", "/g3.jpg", "/g4.jpg", "/g5.jpg", "/g6.jpg"].map((src) => (
-            <div
-              key={src}
-              className="group relative aspect-[4/5] overflow-hidden rounded-xl shadow-md transition-all hover:shadow-xl"
-            >
-              <Image
-                src={src}
-                alt="Gallery image"
-                fill
-                className="object-cover transition-transform duration-500 group-hover:scale-105"
-              />
+          {["/g1.jpg", "/g2.jpg", "/g3.jpg", "/g4.jpg", "/g5.jpg", "/g6.jpg", "/g7.jpg",
+  "/g8.jpg","/g9.jpg","/g10.jpg","/g11.jpg","/g12.jpg","/g13.jpg","/g14.jpg","/g15.jpg",
+  "/g16.jpg","/g17.jpg","/g18.jpg","/g19.jpg","/g20.jpg","/g21.jpg","/g22.jpg","/g23.jpg",
+  "/g24.jpg","/g25.jpg","/g27.jpg","/g28.jpg","/g29.jpg","/g30.jpg","/g31.jpg",
+  "/g32.jpg","/g33.jpg","/g34.jpg","/g35.jpg","/g36.jpg","/g37.jpg","/g38.jpg","/g39.jpg",
+  "/g40.jpg","/g41.jpg","/g42.jpg","/g43.jpg","/g44.jpg","/g45.jpg","/g46.jpg","/g47.jpg",
+  "/g48.jpg","/g49.jpg","/g50.jpg","/g51.jpg"].map((src) => (
+            <div key={src} className="group relative aspect-[4/5] overflow-hidden rounded-xl shadow-md transition-all hover:shadow-xl">
+              <Image src={src} alt="Gallery image" fill className="object-cover transition-transform duration-500 group-hover:scale-105" />
             </div>
           ))}
         </div>
@@ -492,7 +385,7 @@ function Gallery() {
 }
 
 /* ===========================
-   FAQ - UPGRADED
+   FAQ
    =========================== */
 function FAQ() {
   const faqs = [
@@ -518,7 +411,6 @@ function FAQ() {
 
   return (
     <section className="relative overflow-hidden bg-gradient-to-br from-neutral-50 via-emerald-50/30 to-neutral-50 py-32 text-black">
-      {/* Decorative elements */}
       <div className="absolute inset-0 -z-10">
         <div className="absolute left-1/4 top-0 h-96 w-96 rounded-full bg-emerald-200/20 blur-3xl"></div>
         <div className="absolute right-1/4 bottom-0 h-96 w-96 rounded-full bg-amber-200/20 blur-3xl"></div>
@@ -533,9 +425,7 @@ function FAQ() {
           <h3 className="mt-6 bg-gradient-to-br from-neutral-900 via-neutral-800 to-emerald-900 bg-clip-text text-5xl font-bold tracking-tight text-transparent">
             Frequently Asked Questions
           </h3>
-          <p className="mt-4 text-lg text-neutral-600">
-            Everything you need to know about our services and policies
-          </p>
+          <p className="mt-4 text-lg text-neutral-600">Everything you need to know about our services and policies</p>
         </div>
 
         <div className="mt-16 grid gap-8 md:grid-cols-2">
@@ -544,9 +434,7 @@ function FAQ() {
               key={i}
               className="group relative overflow-hidden rounded-2xl border border-emerald-100 bg-gradient-to-br from-white via-emerald-50/20 to-white p-8 shadow-lg shadow-emerald-900/5 transition-all hover:shadow-xl hover:shadow-emerald-900/10 hover:-translate-y-1"
             >
-              {/* Decorative gradient */}
               <div className="absolute right-0 top-0 h-32 w-32 bg-gradient-to-br from-emerald-100/50 to-transparent blur-2xl transition-all group-hover:scale-150"></div>
-              
               <div className="relative">
                 <div className="flex items-start gap-4">
                   <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-600 text-white shadow-lg shadow-emerald-600/30 transition-transform group-hover:scale-110">
@@ -562,12 +450,11 @@ function FAQ() {
           ))}
         </div>
 
-        {/* CTA section */}
         <div className="mt-16 text-center">
           <div className="inline-flex flex-col items-center gap-4 rounded-2xl border border-neutral-200 bg-white p-10 shadow-xl">
             <p className="text-lg font-semibold text-neutral-900">Still have questions?</p>
             <p className="max-w-md text-base text-neutral-600">
-              We're here to help! Reach out to our team and we'll get back to you as soon as possible.
+              We&apos;re here to help! Reach out to our team and we&apos;ll get back to you as soon as possible.
             </p>
             <a
               href="#contact"
@@ -595,9 +482,7 @@ function Footer() {
         <div className="grid gap-10 py-16 sm:grid-cols-2 md:grid-cols-3">
           <div>
             <p className="text-lg font-bold text-neutral-900">Designerae Inc.</p>
-            <p className="mt-4 text-sm leading-relaxed text-neutral-600">
-              1234 Main St, Cincinnati, OH
-            </p>
+            <p className="mt-4 text-sm leading-relaxed text-neutral-600">1234 Main St, Cincinnati, OH</p>
             <p className="mt-1 text-sm text-neutral-600">Mon–Sat 9a–6p</p>
             <a
               className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-emerald-600 transition-colors hover:text-emerald-700"
@@ -609,33 +494,9 @@ function Footer() {
           <div>
             <p className="text-lg font-bold text-neutral-900">Follow</p>
             <ul className="mt-4 space-y-3 text-sm text-neutral-600">
-              <li>
-                <a
-                  href="https://instagram.com"
-                  target="_blank"
-                  className="transition-colors hover:text-neutral-900"
-                >
-                  Instagram
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://tiktok.com"
-                  target="_blank"
-                  className="transition-colors hover:text-neutral-900"
-                >
-                  TikTok
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://maps.google.com"
-                  target="_blank"
-                  className="transition-colors hover:text-neutral-900"
-                >
-                  Google Maps
-                </a>
-              </li>
+              <li><a href="https://instagram.com" target="_blank" className="transition-colors hover:text-neutral-900">Instagram</a></li>
+              <li><a href="https://tiktok.com" target="_blank" className="transition-colors hover:text-neutral-900">TikTok</a></li>
+              <li><a href="https://maps.google.com" target="_blank" className="transition-colors hover:text-neutral-900">Google Maps</a></li>
             </ul>
           </div>
           <div>

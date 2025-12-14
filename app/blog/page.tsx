@@ -61,16 +61,25 @@ function Container({ children }: { children: React.ReactNode }) {
    Header with dropdown menus
    =========================== */
 function Header() {
+  const LOGO_SRC = "/logo.png"; // <- change path/name if different
+
   return (
     <header className="sticky top-0 z-50 w-full border-b border-neutral-200/20 bg-white/95 backdrop-blur-xl shadow-sm">
       <Container>
         <div className="flex h-20 items-center justify-between">
-          {/* Brand */}
-          <Link
-            href="/"
-            className="text-xl font-bold tracking-tight text-neutral-900 transition-opacity hover:opacity-70"
-          >
-            DESIGNERAE
+          {/* Brand: logo + wordmark */}
+          <Link href="/" aria-label="Designerae Home" className="flex items-center gap-3 hover:opacity-90">
+            <Image
+              src={LOGO_SRC}
+              alt="Designerae logo"
+              width={240}
+              height={240}
+              priority
+              className="h-14 w-auto md:h-16 lg:h-20"
+            />
+            <span className="text-2xl md:text-3xl font-extrabold tracking-tight text-neutral-900">
+              DESIGNERAE
+            </span>
           </Link>
 
           {/* Desktop nav with dropdowns */}
@@ -85,9 +94,8 @@ function Header() {
                   <path d="M1 1.25L5 4.75L9 1.25" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
                 </svg>
               </summary>
-
               <div className="absolute left-1/2 z-50 mt-3 w-64 -translate-x-1/2 rounded-xl border border-neutral-200 bg-white p-1.5 shadow-xl">
-                <Link href="/#services" className="block rounded-lg px-4 py-3 text-neutral-700 transition-colors hover:bg-neutral-50 hover:text-neutral-900">All Services</Link>
+                <Link href="#services" className="block rounded-lg px-4 py-3 text-neutral-700 transition-colors hover:bg-neutral-50 hover:text-neutral-900">All Services</Link>
                 <Link href="/services/consultations/healthy-hair-consultation" className="block rounded-lg px-4 py-3 text-neutral-700 transition-colors hover:bg-neutral-50 hover:text-neutral-900">Healthy Hair Consultation</Link>
                 <Link href="/services/consultations/loc-start-consultation" className="block rounded-lg px-4 py-3 text-neutral-700 transition-colors hover:bg-neutral-50 hover:text-neutral-900">Loc Start Consultation</Link>
                 <Link href="/services/consultations/color-consultation" className="block rounded-lg px-4 py-3 text-neutral-700 transition-colors hover:bg-neutral-50 hover:text-neutral-900">Color Consultation</Link>
@@ -102,9 +110,8 @@ function Header() {
                   <path d="M1 1.25L5 4.75L9 1.25" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
                 </svg>
               </summary>
-
               <div className="absolute left-1/2 z-50 mt-3 w-64 -translate-x-1/2 rounded-xl border border-neutral-200 bg-white p-1.5 shadow-xl">
-                <Link href="/#story" className="block rounded-lg px-4 py-3 text-neutral-700 transition-colors hover:bg-neutral-50 hover:text-neutral-900">Our Story</Link>
+                <Link href="#story" className="block rounded-lg px-4 py-3 text-neutral-700 transition-colors hover:bg-neutral-50 hover:text-neutral-900">Our Story</Link>
                 <Link href="/classes" className="block rounded-lg px-4 py-3 text-neutral-700 transition-colors hover:bg-neutral-50 hover:text-neutral-900">Classes</Link>
                 <Link href="/blog" className="block rounded-lg px-4 py-3 text-neutral-700 transition-colors hover:bg-neutral-50 hover:text-neutral-900">Blog</Link>
                 <Link href="/about/team" className="block rounded-lg px-4 py-3 text-neutral-700 transition-colors hover:bg-neutral-50 hover:text-neutral-900">Team</Link>
@@ -113,16 +120,16 @@ function Header() {
 
             {/* Single links */}
             <Link href="/my-account" className="transition-colors hover:text-neutral-900">My Account</Link>
-            <a href="/#contact" className="transition-colors hover:text-neutral-900">Contact</a>
+            <a href="#contact" className="transition-colors hover:text-neutral-900">Contact</a>
             <Link href="/shop" className="rounded-lg border border-neutral-300 px-4 py-2 text-neutral-900 transition-all hover:border-neutral-400 hover:bg-neutral-50">Shop</Link>
           </nav>
 
           {/* Mobile quick links + Book Now */}
-          <div className="flex items-center gap-2">
-            <Link href="/my-account" className="mr-1 rounded-lg border border-neutral-300 px-4 py-2 text-sm font-semibold text-neutral-900 transition-all hover:border-neutral-400 hover:bg-neutral-50 md:hidden">My Account</Link>
-            <Link href="/classes" className="mr-1 rounded-lg border border-neutral-300 px-4 py-2 text-sm font-semibold text-neutral-900 transition-all hover:border-neutral-400 hover:bg-neutral-50 md:hidden">Classes</Link>
-            <Link href="/shop" className="mr-1 rounded-lg border border-neutral-300 px-4 py-2 text-sm font-semibold text-neutral-900 transition-all hover:border-neutral-400 hover:bg-neutral-50 md:hidden">Shop</Link>
-            <Link href={BOOKING_URL} className="rounded-lg bg-emerald-600 px-6 py-2.5 text-sm font-semibold text-white shadow-sm transition-all hover:bg-emerald-700 hover:shadow-md">
+          <div className="flex items-center gap-2 md:hidden">
+            <Link href="/my-account" className="rounded-lg border border-neutral-300 px-3 py-2 text-sm font-semibold text-neutral-900 hover:border-neutral-400 hover:bg-neutral-50">My Account</Link>
+            <Link href="/classes" className="rounded-lg border border-neutral-300 px-3 py-2 text-sm font-semibold text-neutral-900 hover:border-neutral-400 hover:bg-neutral-50">Classes</Link>
+            <Link href="/shop" className="rounded-lg border border-neutral-300 px-3 py-2 text-sm font-semibold text-neutral-900 hover:border-neutral-400 hover:bg-neutral-50">Shop</Link>
+            <Link href={BOOKING_URL} className="rounded-lg bg-emerald-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-emerald-700 hover:shadow-md">
               Book Now
             </Link>
           </div>
