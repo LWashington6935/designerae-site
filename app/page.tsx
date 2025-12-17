@@ -482,7 +482,7 @@ function Footer() {
         <div className="grid gap-10 py-16 sm:grid-cols-2 md:grid-cols-3">
           <div>
             <p className="text-lg font-bold text-neutral-900">Designerae Inc.</p>
-            <p className="mt-4 text-sm leading-relaxed text-neutral-600">1234 Main St, Cincinnati, OH</p>
+            <p className="mt-4 text-sm leading-relaxed text-neutral-600">6090 Glenway Ave, Cincinnati, OH 45211 (behind the westernhills shopping plaza)</p>
             <p className="mt-1 text-sm text-neutral-600">Mon–Sat 9a–6p</p>
             <a
               className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-emerald-600 transition-colors hover:text-emerald-700"
@@ -501,8 +501,8 @@ function Footer() {
           </div>
           <div>
             <p className="text-lg font-bold text-neutral-900">Contact</p>
-            <p className="mt-4 text-sm text-neutral-600">booking@designerae.com</p>
-            <p className="mt-1 text-sm text-neutral-600">(555) 123-4567</p>
+            <p className="mt-4 text-sm text-neutral-600">designeraeLLC@gmail.com</p>
+            <p className="mt-1 text-sm text-neutral-600">(513) 917-1312</p>
           </div>
         </div>
         <div className="border-t border-neutral-200 py-8 text-center text-xs text-neutral-500">
