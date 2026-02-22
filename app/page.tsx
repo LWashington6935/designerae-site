@@ -82,14 +82,14 @@ function Header() {
             </details>
 
             {/* Single links */}
-            <Link href="/my-account" className="transition-colors hover:text-neutral-900">My Account</Link>
+            
             <a href="#contact" className="transition-colors hover:text-neutral-900">Contact</a>
             <Link href="/shop" className="rounded-lg border border-neutral-300 px-4 py-2 text-neutral-900 transition-all hover:border-neutral-400 hover:bg-neutral-50">Shop</Link>
           </nav>
 
           {/* Mobile quick links + Book Now */}
           <div className="flex items-center gap-2 md:hidden">
-            <Link href="/my-account" className="rounded-lg border border-neutral-300 px-3 py-2 text-sm font-semibold text-neutral-900 hover:border-neutral-400 hover:bg-neutral-50">My Account</Link>
+            
             <Link href="/classes" className="rounded-lg border border-neutral-300 px-3 py-2 text-sm font-semibold text-neutral-900 hover:border-neutral-400 hover:bg-neutral-50">Classes</Link>
             <Link href="/shop" className="rounded-lg border border-neutral-300 px-3 py-2 text-sm font-semibold text-neutral-900 hover:border-neutral-400 hover:bg-neutral-50">Shop</Link>
             <Link href={BOOKING_URL} className="rounded-lg bg-emerald-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-emerald-700 hover:shadow-md">
@@ -193,18 +193,18 @@ function FeaturedServices() {
           <ServiceRow
             title="Consultations"
             items={[
-              { name: "Healthy Hair Consultation", duration: "20–30 min", price: "$25", href: "/services/consultations/healthy-hair-consultation" },
-              { name: "Loc Start Consultation", duration: "30 min", price: "$25", href: "/services/consultations/loc-start-consultation" },
-              { name: "Color Consultation", duration: "25–35 min", price: "$30", href: "/services/consultations/color-consultation" },
+              { name: "Healthy Hair Consultation", duration: "20–30 min", price: "$30", href: "/services/consultations/healthy-hair-consultation" },
+              { name: "Loc Start Consultation", duration: "30 min", price: "$30", href: "/services/consultations/loc-start-consultation" },
+              { name: "Color Consultation", duration: "25–35 min", price: "$45", href: "/services/consultations/color-consultation" },
             ]}
           />
 
           <ServiceRow
             title="Loc Services"
             items={[
-              { name: "Starter Locs", desc: "Coils / twists / crochet", duration: "2–4 hrs", price: "From $220" },
-              { name: "Retwist", duration: "60–90 min", price: "From $80" },
-              { name: "Maintenance + Style", duration: "90–120 min", price: "From $120" },
+              { name: "Loc Maintenance", desc: "Coils / twists / crochet", duration: "2–4 hrs", price: "From $100" },
+              { name: "Loc Start", duration: "60–90 min", price: "From $150" },
+              { name: "Crochet Maintenance", duration: "90–120 min", price: "From $300" },
             ]}
           />
         </div>
