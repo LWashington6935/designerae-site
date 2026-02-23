@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 // Your Square booking link (used by all "Sign Up" buttons)
 const BOOKING_URL =
-  "https://book.squareup.com/appointments/b82dfff4-1d62-4cf1-8084-9c3d885367ad/location/ERNW2MBNFJMXH/services";
+  "https://designerae.glossgenius.com/";
 
 const CONTACT_EMAIL = "booking@designerae.com";
 

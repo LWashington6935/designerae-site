@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 
 // Square booking link (used across the page)
 const BOOKING_URL =
-  "https://book.squareup.com/appointments/b82dfff4-1d62-4cf1-8084-9c3d885367ad/location/ERNW2MBNFJMXH/services";
+  "https://designerae.glossgenius.com/";
 
 function Container({ children }: { children: React.ReactNode }) {
   return <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">{children}</div>;

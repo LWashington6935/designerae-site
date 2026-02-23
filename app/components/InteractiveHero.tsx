@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
 const BOOKING_URL =
-  "https://book.squareup.com/appointments/b82dfff4-1d62-4cf1-8084-9c3d885367ad/location/ERNW2MBNFJMXH/services";
+  "https://designerae.glossgenius.com/";
 
 // Uses the 6 images you have in /public (g1.jpg...g6.jpg)
 const PHOTOS = ["/g1.jpg", "/g2.jpg", "/g3.jpg", "/g4.jpg", "/g5.jpg", "/g6.jpg"];
